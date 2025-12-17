@@ -10,7 +10,7 @@ const Story = require("./story");
 let Comment =require('./Comment')
 require('dotenv').config()
 
-mongoose.connect('mongodb+srv://harshita21:harshita123@cluster0.wawkstp.mongodb.net/insta').then(()=>{
+mongoose.connect(process.env.Mongo_url).then(()=>{
   console.log("hello db connected...");
 })
 let app = express()
