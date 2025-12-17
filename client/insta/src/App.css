@@ -1,0 +1,70 @@
+body {
+  background-color: black;
+  margin: 0;
+  padding: 0;
+}
+.body-div{
+  display: flex;
+}
+.image{
+  margin-top: 100px;
+  margin-left: 300px;
+  height: 450px;
+  width: auto;
+}
+.form{
+  margin-left: 150px;
+  margin-top: 150px;
+}
+input {
+  color: rgb(228, 226, 226);     
+  background: #121212; 
+  border: 1px solid grey;
+  padding: 8px;
+  margin: 5px 0;
+  width: 270px;
+}
+input::placeholder {
+  font-size: 12px;
+  color: #999;
+}
+.login-btn{
+  background-color: rgb(53, 53, 251);
+  height: 30px;
+  border-radius: 5px;
+  width: 270px;
+  color: #fff;
+}
+h1{
+  text-align: center;
+  font-size: 40px;
+  font-weight: 500;
+  color: #fff;
+  font-style: italic;
+   font-family: cursive;
+}
+h4{
+  color: #cacaca;
+  text-align: center;
+}
+h3{
+  color: rgb(0, 140, 255);
+  text-align: center;
+}
+h2{
+  color: #fff;
+  margin-top: 7px;
+  text-align: center;
+}
+.account{
+  font-weight: 300;
+  color: #fff;
+}
+.signup{
+  display: flex;
+  justify-content: center;
+}
+.sign{
+  font-weight: 800px;
+  color: rgb(0, 140, 255);
+}
