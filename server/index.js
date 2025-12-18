@@ -14,7 +14,16 @@ mongoose.connect(process.env.Mongo_url).then(()=>{
   console.log("hello db connected...");
 })
 let app = express()
-app.use(cors())
+app.use(cors({
+  origin: [
+    "http://localhost:5173",
+    "https://capable-alpaca-042ca5.netlify.app"
+  ],
+  methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+  allowedHeaders: ["Content-Type", "Authorization"],
+  credentials: true
+}))
+
 app.use(express.json())
 app.get('/',(req,res)=>{
     res.send("helllo...")

@@ -17,7 +17,7 @@ const Insta = () => {
     }
 
     try {
-      const res = await axios.post("http://localhost:4000/login", {
+      const res = await axios.post("https://instagram-fullstack-d71b.onrender.com/login", {
         email,
         passWord
       });

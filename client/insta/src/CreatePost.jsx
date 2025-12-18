@@ -54,14 +54,14 @@ const CreatePost = () => {
       if (error) throw error;
 
       // 2️⃣ Public URL create
-      const imgUrl = `${supabaseUrl}/storage/v1/object/public/Insta/insta_images/${filePath}`;
+      const imgUrl = `${supabaseUrl}/storage/v1/object/public/Insta/${filePath}`;
       console.log("Image URL:", imgUrl);
 
-      
+      // https://jebpcpswsonfkiwpthsx.supabase.co/storage/v1/object/public/Insta/insta_images/1766046541651_my-pic.jpg
 
       // 3️⃣ Apne backend ko call karo
       const res = await axios.post(
-        "http://localhost:4000/upload",
+        "https://instagram-fullstack-d71b.onrender.com/upload",
         { imgUrl },
         {
           headers: {

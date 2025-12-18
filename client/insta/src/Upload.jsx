@@ -33,7 +33,7 @@ const Upload = () => {
       const imgUrl = `${supabaseUrl}/storage/v1/object/public/Insta/insta_images/${Img.name}`;
       console.log("Image URL:", imgUrl);
 
-      axios.post("http://localhost:4000/upload",{imgUrl})
+      axios.post("https://instagram-fullstack-d71b.onrender.com/upload",{imgUrl})
 
       alert("✅ Image uploaded and saved successfully!");
       setImg(null);
