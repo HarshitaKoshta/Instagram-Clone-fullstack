@@ -11,9 +11,9 @@ const Sidebar = () => {
   const [results, setResults] = useState([]);
   const [searchLoading, setSearchLoading] = useState(false);
   const [followingSet, setFollowingSet] = useState(new Set()); // local tracking of who we follow
+const [stories, setStories] = useState([]);
+const [storyLoading, setStoryLoading] = useState(false);
 
-  // optional: get current user id from token if you store it separately
-  // const currentUserId = localStorage.getItem("userId") || null;
 
   const isActive = (path) =>
     location.pathname === path ? "font-semibold" : "font-normal";
@@ -37,7 +37,7 @@ const Sidebar = () => {
       setSearchLoading(true);
       // backend expects POST /search?q=...
       const res = await axios.post(
-        `https://instagram-fullstack-d71b.onrender.com/search?q=${encodeURIComponent(text)}`
+        `https://instagram-clone-fullstack-2.onrender.com/search?q=${encodeURIComponent(text)}`
       );
 
       // your backend returns { msg: [...] }
@@ -66,7 +66,7 @@ const Sidebar = () => {
 
     try {
       const res = await axios.post(
-        `https://instagram-fullstack-d71b.onrender.com/follow/${targetUserId}`,
+        `https://instagram-clone-fullstack-2.onrender.com/follow/${targetUserId}`,
         {},
         {
           headers: {
@@ -133,6 +133,41 @@ const Sidebar = () => {
     navigate("/profile"); // you can change to `/user/${user._id}`
     closeSearch();
   };
+
+
+/// story
+
+const fetchStories = async () => {
+  const token = localStorage.getItem("token");
+  if (!token) return;
+
+  try {
+    setStoryLoading(true);
+    const res = await axios.get(
+      "https://instagram-clone-fullstack-2.onrender.com/stories",
+      {
+        headers: {
+          Authorization: token, // WITHOUT bearer (as per your backend)
+        },
+      }
+    );
+
+    setStories(res.data || []);
+  } catch (err) {
+    console.error("STORY FETCH ERROR:", err);
+  } finally {
+    setStoryLoading(false);
+  }
+};
+useEffect(() => {
+  fetchStories();
+}, []);
+
+const openStory = (story) => {
+  // for now just open image/video in new tab
+  window.open(story.mediaUrl, "_blank");
+};
+
 
   return (
     <>

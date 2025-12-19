@@ -61,7 +61,7 @@ const CreatePost = () => {
 
       // 3️⃣ Apne backend ko call karo
       const res = await axios.post(
-        "https://instagram-fullstack-d71b.onrender.com/upload",
+        "https://instagram-clone-fullstack-2.onrender.com/upload",
         { imgUrl },
         {
           headers: {

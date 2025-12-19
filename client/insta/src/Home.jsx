@@ -3,7 +3,7 @@ import axios from "axios";
 import Sidebar from "./SideBar";
 import { useNavigate } from "react-router-dom";
 
-const API = "https://instagram-fullstack-d71b.onrender.com";
+const API = "https://instagram-clone-fullstack-2.onrender.com";
 
 const Home = () => {
   const [posts, setPosts] = useState([]);
@@ -17,6 +17,9 @@ const Home = () => {
   const [comments, setComments] = useState({});
 
 
+   const [stories, setStories] = useState([]);
+  const [storyUrl, setStoryUrl] = useState("");
+  const [activeStory, setActiveStory] = useState(null);
   // 🔒 Agar token nahi hai to login page pe bhej do
   useEffect(() => {
     const token = localStorage.getItem("token");
@@ -198,6 +201,40 @@ const Home = () => {
     }
   };
 
+/// story fetch
+
+   useEffect(() => {
+    const fetchStories = async () => {
+      const token = localStorage.getItem("token");
+      const res = await axios.get(`${API}/stories`, {
+        headers: { Authorization: token },
+      });
+      setStories(res.data);
+    };
+
+    fetchStories();
+  }, []);
+
+  // upload story
+  const uploadStory = async () => {
+    if (!storyUrl) return alert("Enter image URL");
+
+    const token = localStorage.getItem("token");
+
+    await axios.post(
+      `${API}/story`,
+      { mediaUrl: storyUrl },
+      { headers: { Authorization: token } }
+    );
+
+    setStoryUrl("");
+
+    const res = await axios.get(`${API}/stories`, {
+      headers: { Authorization: token },
+    });
+    setStories(res.data);
+  };
+
   return (
     <div className="bg-black min-h-screen flex">
       <Sidebar />
@@ -206,7 +243,7 @@ const Home = () => {
       <div className="flex-1 ml-[245px] flex flex-col items-center overflow-y-auto">
         <div className="pt-8 flex flex-col items-center w-full max-w-[470px] px-4">
           {/* Stories */}
-          <div className="w-full bg-[#121212] rounded-lg mb-6">
+          {/* <div className="w-full bg-[#121212] rounded-lg mb-6">
             <div className="overflow-x-auto whitespace-nowrap flex gap-4 p-4 hide-scrollbar">
               {[...Array(10)].map((_, index) => (
                 <div
@@ -228,7 +265,68 @@ const Home = () => {
                 </div>
               ))}
             </div>
+          </div> */}
+
+
+
+  {/* ================= STORIES ================= */}
+          <div className="bg-[#121212] p-3 rounded-lg">
+            <div className="flex gap-4 overflow-x-auto">
+
+              {/* YOUR STORY */}
+              <div className="flex flex-col items-center">
+                <div className="p-[2px] rounded-full bg-gradient-to-tr from-pink-500 to-yellow-500">
+                  <img
+                    src="https://cdn-icons-png.flaticon.com/512/992/992651.png"
+                    className="h-14 w-14 rounded-full"
+                    alt="add"
+                  />
+                </div>
+                <input
+                  value={storyUrl}
+                  onChange={(e) => setStoryUrl(e.target.value)}
+                  placeholder="URL"
+                  className="text-xs bg-black text-white mt-1 w-16 outline-none"
+                />
+                <button
+                  onClick={uploadStory}
+                  className="text-blue-500 text-xs"
+                >
+                  Add
+                </button>
+              </div>
+
+              {/* OTHER STORIES */}
+              {stories.map((story) => (
+                <div
+                  key={story._id}
+                  onClick={() => setActiveStory(story)}
+                  className="flex flex-col items-center cursor-pointer"
+                >
+                  <div className="p-[2px] rounded-full bg-gradient-to-tr from-pink-500 to-yellow-500">
+                    <img
+                      src={story.mediaUrl}
+                      className="h-14 w-14 rounded-full object-cover"
+                      alt=""
+                    />
+                  </div>
+                  <p className="text-white text-xs mt-1">
+                    {story.user.name}
+                  </p>
+                </div>
+              ))}
+            </div>
           </div>
+
+          {loading && (
+            <p className="text-gray-400 text-center">Loading...</p>
+          )}
+
+          
+
+
+
+
 
           {/* Loading state */}
           {loading && (

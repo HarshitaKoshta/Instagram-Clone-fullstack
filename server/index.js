@@ -17,12 +17,19 @@ let app = express()
 app.use(cors({
   origin: [
     "http://localhost:5173",
-    "https://capable-alpaca-042ca5.netlify.app"
+    // "https://capable-alpaca-042ca5.netlify.app",
+    // "https://fascinating-tarsier-cad7be.netlify.app",
+    // "https://illustrious-sunflower-53790d.netlify.app",
+    // "https://stirring-boba-86d579.netlify.app",
+    "https://illustrious-sunflower-53790d.netlify.app"
+
   ],
   methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
   allowedHeaders: ["Content-Type", "Authorization"],
   credentials: true
 }))
+
+// app.options("*", cors());
 
 app.use(express.json())
 app.get('/',(req,res)=>{
@@ -398,9 +405,8 @@ app.get("/comment/:postId", auth, async (req, res) => {
 app.listen(4000,()=>{
     console.log("server runnig on port no 4000");
 })
-
-
-
+// const PORT = process.env.PORT || 4000;
+// app.listen(PORT);
 // harshita21
 // harshita123
 // mongodb+srv://harshita21:harshita123@cluster0.wawkstp.mongodb.net/

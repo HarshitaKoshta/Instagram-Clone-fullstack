@@ -33,8 +33,11 @@ const Upload = () => {
       const imgUrl = `${supabaseUrl}/storage/v1/object/public/Insta/insta_images/${Img.name}`;
       console.log("Image URL:", imgUrl);
 
-      axios.post("https://instagram-fullstack-d71b.onrender.com/upload",{imgUrl})
-
+      axios.post("https://instagram-clone-fullstack-2.onrender.com/upload",{imgUrl}),{
+        headers:{
+          Authorization: localStorage.getItem("token")
+        }
+      }
       alert("✅ Image uploaded and saved successfully!");
       setImg(null);
     } catch (err) {

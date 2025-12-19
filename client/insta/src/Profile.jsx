@@ -23,10 +23,10 @@ const Profile = () => {
     const fetchData = async () => {
       try {
         const [meRes, postsRes] = await Promise.all([
-          axios.get("https://instagram-fullstack-d71b.onrender.com/me", {
+          axios.get("https://instagram-clone-fullstack-2.onrender.com/me", {
             headers: { Authorization: token },
           }),
-          axios.get("https://instagram-fullstack-d71b.onrender.com/my-posts", {
+          axios.get("https://instagram-clone-fullstack-2.onrender.com/my-posts", {
             headers: { Authorization: token },
           }),
         ]);
